@@ -1,6 +1,8 @@
 let system;
 
-const GRAVITATIONAL_CONSTANT = -50
+
+
+const GRAVITATIONAL_CONSTANT = -200
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
@@ -26,14 +28,14 @@ function mouseClicked() {
 function keyPressed() {
     console.log(keyCode)
     if (keyCode === 84){
-        system.addTinyParticle(createVector(mouseX, mouseY))
-    } else if (keyCode === 83) {
+        system.addTinyParticle(createVector(mouseX, mouseY)) // T -- make a tiny particle
+    } else if (keyCode === 83) {    // S -- make everything slow down
         system.slow()
-    } else if (keyCode === 70) {
+    } else if (keyCode === 70) { // F -- make everything move faster
         system.fast()
-    } else if (keyCode === 76) {
+    } else if (keyCode === 76) {  // L -- change if lines are shown 
         system.showLines()
-    }   else {
+    }   else { // Any Key --- SPAWN BLACK HOLE
         system.addShape(mouseX, mouseY)
     }
 }
@@ -128,7 +130,7 @@ class Particle {
             let total_distance =  Math.sqrt(  Math.abs( x_distance)**2 + Math.abs(y_distance)**2)
 
             // console.log('total_distance', total_distance)
-            if (total_distance < 20 ) continue
+            if (total_distance < 80 ) continue
 
             let gravitational_force = GRAVITATIONAL_CONSTANT * p.mass * this.mass / ( total_distance ** 2 )
 
@@ -162,7 +164,7 @@ class ParticleSystem{
         this.field = [[]]
         this.LINES = 30
         this.frame_count = 0
-        this.show_lines = true
+        this.show_lines = false
     }
 
     showLines = () => this.show_lines = !this.show_lines
